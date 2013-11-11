@@ -23,7 +23,7 @@ growForest <- function(plotSize, nRadius, growthCycles, samplePlots, numPlots = 
     ## Generate random field from sample plot
     simPlot <- makeRandomPlot(samp, plotSize, sizeVar)
     ## Get neighbor model parameters
-    pars <- read.csv("~/Allometry/parameters.csv")
+    pars <- read.csv("~/work/data/data/parameters/parameters-growth.csv")
     ps <- get.params(sr=nRadius,spec="FD",ind.var="priorbv",dep.var="rgrsisdp",
                      currentmodel = "simplest")
     ## dataframe to accumulate results
@@ -60,7 +60,7 @@ stepForest <- function(simPlot, pSize, ps) {
 
 ## Function to retrieve a,b growth parameters for growForest
 abPars <- function(simBC) {
-    rgrs <- read.csv("~/Allometry/data/rgr-params-for-sim.csv")
+    rgrs <- read.csv("~/work/data/data/simulation/rgr-params-for-sim.csv")
     a <- rgrs[rgrs$install == mean(simBC$install) & rgrs$plot == mean(simBC$plot) &
               rgrs$sdpclass == mean(simBC$sdpclass) & rgrs$si == mean(simBC$si),]$a
     b <- rgrs[rgrs$install == mean(simBC$install) & rgrs$plot == mean(simBC$plot) &
@@ -80,7 +80,7 @@ killTrees <- function(simBC, killFunc) {
 ## Function to kill trees after a growth step
 killTrees1 <- function(simBC) {
     ## retrieve prob of death
-    pDeath <- read.csv("~/Allometry/data/pDeath-by-sdpclass.csv")
+    pDeath <- read.csv("~/work/data/data/simulation/pDeath-by-sdpclass.csv")
     pDie <- pDeath[pDeath$sdpclass == unique(simBC$sdpclass),]$pDeath
     ## randomly kill off trees from simBC
     samp <- nrow(simBC)
@@ -92,7 +92,7 @@ killTrees1 <- function(simBC) {
 }
 
 ## Kill trees using hazard model
-killTrees2 <- function(
+## killTrees2 <- function(
 
 ## simBC <- mod[mod$time == 1,]
 ## simBC <- killTrees(simBC)
